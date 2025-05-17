@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
+
 interface Post {
     id: number;
     title: string;
@@ -11,16 +14,35 @@ interface PostCardProps {
 }
 
 const PostCard = ({ post }: PostCardProps) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
-        <div className="post-card rounded-lg border border-border bg-card p-6 shadow-sm transition-all hover:shadow-md">
-            <h3 className="text-xl font-semibold text-card-foreground mb-2">{post.title}</h3>
-            <p className="text-muted-foreground mb-4">{post.content}</p>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Likes: {post.likes}</span>
-                <span>•</span>
-                <time>{new Date(post.created_at).toLocaleDateString()}</time>
-            </div>
-        </div>
+        <Card 
+            className={`hover:shadow-2xl dark:hover:bg-zinc-800 transition-all duration-300 ease-in-out cursor-pointer
+                ${isExpanded ? 'dark:bg-zinc-800' : ''}`}
+            onClick={toggleExpand}
+        >
+            <CardHeader>
+                <CardTitle>{post.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p className={`text-muted-foreground break-words transition-all duration-300
+                    ${isExpanded ? '' : 'line-clamp-2'}`}>
+                    {post.content}
+                </p>
+            </CardContent>
+            <CardFooter>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <span>Likes: {post.likes}</span>
+                    <span>•</span>
+                    <time>{new Date(post.created_at).toLocaleDateString()}</time>
+                </div>
+            </CardFooter>
+        </Card>
     )
 }
 
