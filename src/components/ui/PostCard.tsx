@@ -31,7 +31,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardHeader>
             <CardContent>
                 <p className={`text-muted-foreground break-words transition-all duration-300
-                    ${isExpanded ? '' : 'line-clamp-2'}`}>
+                    ${isExpanded ? '' : 'line-clamp-3'}`}>
                     {post.content}
                 </p>
             </CardContent>
