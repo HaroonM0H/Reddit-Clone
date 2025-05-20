@@ -18,7 +18,9 @@ function App() {
               {session ? (
                 <>
                   <span className="text-zinc-400">
+                    <Link to= '/profile'>
                     {session.user.email}
+                    </Link>
                   </span>
                   <button 
                     onClick={() => signOut()}

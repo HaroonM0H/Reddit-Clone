@@ -5,10 +5,17 @@ import App from './App'
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Profile from './pages/Profile'
+import PrivateRoute from './components/PrivateRoute'
 
 export const router = createBrowserRouter([ 
     {path: "/", element: <App />},
     {path: "/signup", element: <Signup />},
     {path: "/signin", element: <Signin />},
-    {path: "/profile", element: <Profile />}
+    {path: "/profile",
+         element: (
+        <PrivateRoute>
+            <Profile />{" "}
+        </PrivateRoute> 
+        ),       
+    },
 ]);
