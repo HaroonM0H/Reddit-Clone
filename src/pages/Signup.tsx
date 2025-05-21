@@ -30,30 +30,43 @@ const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
 
 }
 return (
-    <div>
+    <div className="min-h-screen bg-zinc-900 text-white">
       <form onSubmit={handleSignup} className="max-w-md m-auto pt-24">
-        <h2 className="font-bold pb-2">Sign up today!</h2>
-        <p>
-          Already have an account? <Link to="/signin" className="text-blue-500 hover:text-blue-600">Sign in!</Link>
+        <h2 className="font-bold text-2xl pb-2">Sign up today!</h2>
+        <p className="text-zinc-400">
+          Already have an account? <Link to="/signin" className="text-red-500 hover:text-red-400 transition-colors">Sign in!</Link>
         </p>
         <div className="flex flex-col py-4">
-          <input onChange={(e) => setEmail(e.target.value)}
+          <input 
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
-            className="p-3 mt-6"
+            className="p-3 mt-6 bg-zinc-800 border border-zinc-700 rounded-sm focus:outline-none focus:border-zinc-600 text-white placeholder:text-zinc-500"
             type="email"
-            />
-          <input onChange={(e) => setPassword(e.target.value)}
+          />
+          <input 
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="p-3 mt-6" 
+            className="p-3 mt-6 bg-zinc-800 border border-zinc-700 rounded-sm focus:outline-none focus:border-zinc-600 text-white placeholder:text-zinc-500"
             type="password"
-            />
-          <button type="submit" disabled={loading} className="mt-6 w-full"> Create account </button>
-
+          />
+          <button 
+            type="submit" 
+            disabled={loading} 
+            className="bg-red-600 text-white px-6 py-3 mt-6 w-full rounded-sm hover:bg-red-700 transition-colors disabled:opacity-50"
+          >
+            Create account
+          </button>
+          
+          <br></br>
+          <Link to= "/App" className="text-zinc-400 hover:text-white transition-colors">
+            Back to home
+          </Link>
+          
           {error && <p className="text-red-500 text-center pt-4">{error}</p>}
         </div>
       </form>
     </div>
-  );
+);
 };
 
 export default Signup;

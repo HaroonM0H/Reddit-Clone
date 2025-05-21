@@ -12,7 +12,7 @@ function App() {
         <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-900 border-b border-zinc-800 shadow-lg">
           <div className="container mx-auto px-4 py-3 flex justify-between items-center">
             <Link to="/" className="text-white text-2xl font-bold hover:text-zinc-200 transition-colors">
-              My App
+              Dread it
             </Link>
             <div className="flex items-center gap-4">
               {session ? (
