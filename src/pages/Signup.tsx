@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../context/AuthContext.tsx";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const Signup = () => {
 const [email, setEmail] = useState("");
@@ -36,33 +38,41 @@ return (
         <p className="text-zinc-400">
           Already have an account? <Link to="/signin" className="text-red-500 hover:text-red-400 transition-colors">Sign in!</Link>
         </p>
-        <div className="flex flex-col py-4">
-          <input 
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className="p-3 mt-6 bg-zinc-800 border border-zinc-700 rounded-sm focus:outline-none focus:border-zinc-600 text-white placeholder:text-zinc-500"
-            type="email"
-          />
-          <input 
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="p-3 mt-6 bg-zinc-800 border border-zinc-700 rounded-sm focus:outline-none focus:border-zinc-600 text-white placeholder:text-zinc-500"
-            type="password"
-          />
-          <button 
-            type="submit" 
-            disabled={loading} 
-            className="bg-red-600 text-white px-6 py-3 mt-6 w-full rounded-sm hover:bg-red-700 transition-colors disabled:opacity-50"
+        <div className="flex flex-col gap-6 py-4">
+          <div className="space-y-2">
+            <Input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+            />
+          </div>
+          <div className="space-y-2">
+            <Input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
+            />
+          </div>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-red-600 hover:bg-red-700"
           >
             Create account
-          </button>
-          
-          <br></br>
-          <Link to= "/App" className="text-zinc-400 hover:text-white transition-colors">
+          </Button>
+
+          <Link 
+            to="/" 
+            className="text-zinc-400 hover:text-white transition-colors text-center"
+          >
             Back to home
           </Link>
-          
-          {error && <p className="text-red-500 text-center pt-4">{error}</p>}
+
+          {error && <p className="text-red-500 text-center">{error}</p>}
         </div>
       </form>
     </div>
