@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
+import PostPage from './pages/PostPage'
 
 export const router = createBrowserRouter([ 
     {path: "/", element: <App />},
@@ -18,4 +19,11 @@ export const router = createBrowserRouter([
         </PrivateRoute> 
         ),       
     },
+    {path: "/postpage",
+        element: (
+        <PrivateRoute>
+            <PostPage/>{" "}
+        </PrivateRoute> 
+        ),  
+    }
 ]);

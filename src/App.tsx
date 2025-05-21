@@ -1,7 +1,19 @@
 import { UserAuth } from "./context/AuthContext";
 import { Link } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { Button } from "./components/ui/button"
+
 //pages
 import Home from "./pages/Home"
+
 
 
 function App() {
@@ -17,17 +29,27 @@ function App() {
             <div className="flex items-center gap-4">
               {session ? (
                 <>
-                  <span className="text-zinc-400">
-                    <Link to= '/profile'>
-                    {session.user.email}
-                    </Link>
-                  </span>
-                  <button 
-                    onClick={() => signOut()}
-                    className="text-zinc-400 hover:text-white transition-colors"
-                  >
-                    Sign Out
-                  </button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="text-zinc-400 hover:text-white transition-colors">
+                      {session.user.email}
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuLabel>Account</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <Link to="/profile">
+                        <DropdownMenuItem>Profile</DropdownMenuItem>
+                      </Link>
+                      <Link to="/postpage">
+                        <DropdownMenuItem>Post</DropdownMenuItem>
+                      </Link>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem >
+                        <Button variant="outline" className="w-full" onClick={signOut}>
+                          Sign Out
+                        </Button>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </>
               ) : (
                 <Link 
