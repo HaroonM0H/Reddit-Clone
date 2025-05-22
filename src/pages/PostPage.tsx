@@ -5,7 +5,7 @@ import { UserAuth } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 export default function PostPage() {
     const [title, setTitle] = useState("");
@@ -50,6 +50,7 @@ export default function PostPage() {
 
     return (
         <div className="min-h-screen bg-zinc-900">
+            {loading && <LoadingSpinner />}
             <div className="container mx-auto px-4 pt-20">
                 <div className="max-w-2xl mx-auto">
                     <Card className="bg-zinc-800 border-zinc-700">
