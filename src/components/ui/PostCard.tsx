@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
 
 interface Post {
@@ -14,24 +14,22 @@ interface PostCardProps {
 }
 
 const PostCard = ({ post }: PostCardProps) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const navigate = useNavigate();
 
-    const toggleExpand = () => {
-        setIsExpanded(!isExpanded);
+    const handleClick = () => {
+        navigate(`/post/${post.id}`);
     };
 
     return (
         <Card 
-            className={`hover:shadow-2xl dark:hover:bg-zinc-800 transition-all duration-300 ease-in-out cursor-pointer
-                ${isExpanded ? 'dark:bg-zinc-800' : ''}`}
-            onClick={toggleExpand}
+            className="hover:shadow-2xl dark:hover:bg-zinc-800 transition-all duration-300 ease-in-out cursor-pointer"
+            onClick={handleClick}
         >
             <CardHeader>
                 <CardTitle>{post.title}</CardTitle>
             </CardHeader>
             <CardContent>
-                <p className={`text-muted-foreground break-words transition-all duration-300
-                    ${isExpanded ? '' : 'line-clamp-3'}`}>
+                <p className="text-muted-foreground break-words transition-all duration-300 line-clamp-3">
                     {post.content}
                 </p>
             </CardContent>

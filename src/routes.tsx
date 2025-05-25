@@ -7,6 +7,7 @@ import Signin from './pages/Signin'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
 import PostPage from './pages/PostPage'
+import ViewPost from './pages/ViewPost'
 
 export const router = createBrowserRouter([ 
     {path: "/", element: <App />},
@@ -25,5 +26,12 @@ export const router = createBrowserRouter([
             <PostPage/>{" "}
         </PrivateRoute> 
         ),  
+    },
+    {path: "/post/:id",
+        element: (
+        <PrivateRoute>
+            <ViewPost />{" "}
+        </PrivateRoute>
+        ),
     }
 ]);
