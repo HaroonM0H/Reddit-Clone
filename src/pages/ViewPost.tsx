@@ -74,7 +74,7 @@ export default function ViewPost() {
                     </CardFooter>
                 </Card>
 
-                <Comments/>
+                <Comments postId={post.id} />
             </div>
         </div>
     );

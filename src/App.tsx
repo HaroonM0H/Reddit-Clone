@@ -59,7 +59,7 @@ function App() {
               )}
             </div>
           </div>
-        </nav>  
+        </nav>
         <main className="container mx-auto px-4 pt-20">
           <Home />
         </main>
