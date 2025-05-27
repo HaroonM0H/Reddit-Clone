@@ -70,6 +70,12 @@ const Profile = () => {
                 <div className="flex items-center gap-2 text-lg">
                   <span className="text-white">Welcome,</span>
                   <span className="text-zinc-400">{session?.user.email}</span>
+                  <span>
+                    <Button 
+                    variant ="outline"
+                    className = "w-full bg-zinc-700/50 border-zinc-600 text-white hover:bg-zinc-700"
+                    >Change your username</Button>
+                  </span>
                 </div>
                 <div className="grid gap-4">
                   <Link to="/postpage">

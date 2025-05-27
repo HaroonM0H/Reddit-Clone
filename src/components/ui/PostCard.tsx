@@ -1,5 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
+import supabase from "../../config/supabaseClient";
+import { useEffect, useState } from "react";
+
 
 interface Post {
     id: number;
@@ -13,12 +16,38 @@ interface PostCardProps {
     post: Post;
 }
 
+interface Likes {
+    likes: number;
+}
+
 const PostCard = ({ post }: PostCardProps) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
         navigate(`/post/${post.id}`);
     };
+
+    const [like, setLike] = useState<Likes>({
+        likes: post.likes
+    });
+
+    useEffect(() => {
+        const fetchLikes = async () => {
+            const { data, error } = await supabase
+                .from('posts')
+                .select('likes')
+                .eq('id', post.id)
+                .single();
+
+            if (error) {
+                console.error("Error fetching likes:", error.message);
+            } else if (data) {
+                setLike({ likes: data.likes });
+            }
+        };
+
+        fetchLikes();
+    }, [post.id]);
 
     return (
         <Card 
