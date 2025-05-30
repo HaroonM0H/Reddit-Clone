@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter } from "./ui/card";
 import supabase from '../config/supabaseClient';
 import { LoadingSpinner } from './ui/LoadingSpinner';
 
+
 interface Comment {
     id: number;
     created_at: string;
@@ -71,6 +72,7 @@ function Comments({ postId }: CommentsProps) {
                     </CardFooter>
                 </Card>
             ))}
+            
         </div>
     );
 }

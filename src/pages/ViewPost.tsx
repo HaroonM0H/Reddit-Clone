@@ -5,6 +5,7 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { Button } from '../components/ui/button';
 import supabase from '../config/supabaseClient';
 import Comments from "@/components/Comments"
+import  EnterComment  from '../components/EnterComment';
 
 interface Post {
     id: number;
@@ -85,6 +86,10 @@ export default function ViewPost() {
                     </Card>
 
                     <Comments postId={post.id} />
+                    <div className ="sticky z-10 bottom-0 bg-zinc-900  rounded-lg shadow-lg text-white">
+                        <EnterComment />
+                    </div>
+                    
                 </div>
             </div>
         </div>
