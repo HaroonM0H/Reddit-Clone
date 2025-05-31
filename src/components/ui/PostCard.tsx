@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
 import supabase from "../../config/supabaseClient";
 import { useEffect, useState } from "react";
+import UpDownvote from "../UpDownvote";
 
 
 interface Post {
@@ -64,6 +65,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardContent>
             <CardFooter>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <span><UpDownvote/></span>
                     <span>Likes: {like.likes}</span>
                     <span>•</span>
                     <time>{new Date(post.created_at).toLocaleDateString()}</time>
