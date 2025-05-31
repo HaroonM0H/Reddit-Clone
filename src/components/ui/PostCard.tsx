@@ -64,7 +64,7 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardContent>
             <CardFooter>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>Likes: {post.likes}</span>
+                    <span>Likes: {like.likes}</span>
                     <span>•</span>
                     <time>{new Date(post.created_at).toLocaleDateString()}</time>
                 </div>
