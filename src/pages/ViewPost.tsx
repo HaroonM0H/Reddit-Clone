@@ -12,7 +12,7 @@ interface Post {
     title: string;
     content: string;
     created_at: string;
-    likes: number;
+    num_votes: number;
 }
 
 export default function ViewPost() {
@@ -78,7 +78,7 @@ export default function ViewPost() {
                         </CardContent>
                         <CardFooter>
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <span>Likes: {post.likes}</span>
+                                <span>Votes: {post.num_votes}</span>
                                 <span>•</span>
                                 <time>{new Date(post.created_at).toLocaleDateString()}</time>
                             </div>

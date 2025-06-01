@@ -2,23 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
 import supabase from "../../config/supabaseClient";
 import { useEffect, useState } from "react";
-import UpDownvote from "../UpDownvote";
-
 
 interface Post {
     id: number;
     title: string;
     content: string;
     created_at: string;
-    likes: number;
+    num_votes: number;
 }
 
 interface PostCardProps {
     post: Post;
 }
 
-interface Likes {
-    likes: number;
+interface Votes {
+    num_votes: number;
 }
 
 const PostCard = ({ post }: PostCardProps) => {
@@ -28,26 +26,26 @@ const PostCard = ({ post }: PostCardProps) => {
         navigate(`/post/${post.id}`);
     };
 
-    const [like, setLike] = useState<Likes>({
-        likes: post.likes
+    const [votes, setVotes] = useState<Votes>({
+        num_votes: post.num_votes || 0
     });
 
     useEffect(() => {
-        const fetchLikes = async () => {
+        const fetchVotes = async () => {
             const { data, error } = await supabase
                 .from('posts')
-                .select('likes')
+                .select('num_votes')
                 .eq('id', post.id)
                 .single();
 
             if (error) {
-                console.error("Error fetching likes:", error.message);
+                console.error("Error fetching votes:", error.message);
             } else if (data) {
-                setLike({ likes: data.likes });
+                setVotes({ num_votes: data.num_votes || 0 });
             }
         };
 
-        fetchLikes();
+        fetchVotes();
     }, [post.id]);
 
     return (
@@ -65,8 +63,8 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardContent>
             <CardFooter>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span><UpDownvote/></span>
-                    <span>Likes: {like.likes}</span>
+                    
+                    <span>Votes: {votes.num_votes}</span>
                     <span>•</span>
                     <time>{new Date(post.created_at).toLocaleDateString()}</time>
                 </div>

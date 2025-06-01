@@ -10,7 +10,7 @@ interface Post {
     title: string;
     content: string;
     created_at: string;
-    likes: number;
+    num_votes: number;
 }
 
 export default function Home() {
