@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/card';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -20,6 +20,11 @@ export default function ViewPost() {
     const [loading, setLoading] = useState(true);
     const [post, setPost] = useState<Post | null>(null);
     const { id } = useParams();
+    const [refreshComments, setRefreshComments] = useState(0);
+
+    const handleCommentAdded = useCallback(() => {
+        setRefreshComments(c => c + 1);
+    }, []);
     
     useEffect(() => {
         const fetchPost = async () => {
@@ -78,18 +83,17 @@ export default function ViewPost() {
                         </CardContent>
                         <CardFooter>
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <span>Votes: {post.num_votes}</span>
+                                <span>Likes: {post.num_votes}</span>
                                 <span>•</span>
                                 <time>{new Date(post.created_at).toLocaleDateString()}</time>
                             </div>
                         </CardFooter>
                     </Card>
 
-                    <Comments postId={post.id} />
-                    <div className ="sticky z-10 bottom-0 bg-zinc-900  rounded-lg shadow-lg text-white">
-                        <EnterComment />
+                    <Comments postId={post.id} key={refreshComments} />
+                    <div className="sticky z-10 bottom-0 bg-zinc-900 rounded-lg shadow-lg text-white p-2">
+                        <EnterComment postId={post.id} onCommentAdded={handleCommentAdded} />
                     </div>
-                    
                 </div>
             </div>
         </div>

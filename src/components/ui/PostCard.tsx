@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
 import supabase from "../../config/supabaseClient";
 import { useEffect, useState } from "react";
 
+
 interface Post {
     id: number;
     title: string;
@@ -63,7 +64,6 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardContent>
             <CardFooter>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    
                     <span>Votes: {votes.num_votes}</span>
                     <span>•</span>
                     <time>{new Date(post.created_at).toLocaleDateString()}</time>

@@ -61,7 +61,7 @@ function Comments({ postId }: CommentsProps) {
             {comments.map((comment) => (
                 <Card key={comment.id}>
                     <CardContent className="pt-4">
-                        <p className="text-muted-foreground break-words">
+                        <p className="break-words">
                             {comment.content}
                         </p>
                     </CardContent>
