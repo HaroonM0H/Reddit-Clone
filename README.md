@@ -1,54 +1,95 @@
-# React + TypeScript + Vite
+# Dread It - Social Discussion Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Reddit-style discussion platform built with React, TypeScript, and Supabase. Users can create posts, comment, and engage with content in a modern, dark-themed interface.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 User authentication (signup/signin)
+- 📝 Create and view posts
+- 💬 Comment on posts
+- 🌙 Dark mode UI
+- 🎨 Modern, responsive design
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**:
+  - React
+  - TypeScript
+  - TailwindCSS
+  - Radix UI Components
+  - React Router
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Backend/Database**:
+  - Supabase (PostgreSQL)
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+- Supabase account
+
+### Environment Setup
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Clone the repository
+git clone [your-repo-url]
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
+
+### Database Setup
+
+Run these SQL commands in your Supabase SQL editor:
+
+```sql
+-- Create posts table
+CREATE TABLE public.posts (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  title text,
+  content text,
+  username text,
+  num_votes bigint DEFAULT '0'::bigint,
+  CONSTRAINT posts_pkey PRIMARY KEY (id)
+);
+
+-- Create comments table
+CREATE TABLE public.comments (
+  id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  content text NOT NULL,
+  post_id bigint,
+  num_votes bigint DEFAULT '0'::bigint,
+  CONSTRAINT comments_pkey PRIMARY KEY (id),
+  CONSTRAINT comments_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id)
+);
+
+-- Enable Row Level Security
+ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
+
+-- Create policies
+CREATE POLICY "Allow all inserts" ON "public"."comments"
+AS PERMISSIVE FOR INSERT TO public
+WITH CHECK (true);
+```
+
+## Acknowledgments
+
+- UI Components inspired by Radix UI
+- Dark theme design inspiration from modern social platforms
