@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "./card"
-import supabase from "../../config/supabaseClient";
-import { useEffect, useState } from "react";
 
 
 interface Post {
@@ -9,16 +7,12 @@ interface Post {
     title: string;
     content: string;
     created_at: string;
-    num_votes: number;
 }
 
 interface PostCardProps {
     post: Post;
 }
 
-interface Votes {
-    num_votes: number;
-}
 
 const PostCard = ({ post }: PostCardProps) => {
     const navigate = useNavigate();
@@ -26,28 +20,6 @@ const PostCard = ({ post }: PostCardProps) => {
     const handleClick = () => {
         navigate(`/post/${post.id}`);
     };
-
-    const [votes, setVotes] = useState<Votes>({
-        num_votes: post.num_votes || 0
-    });
-
-    useEffect(() => {
-        const fetchVotes = async () => {
-            const { data, error } = await supabase
-                .from('posts')
-                .select('num_votes')
-                .eq('id', post.id)
-                .single();
-
-            if (error) {
-                console.error("Error fetching votes:", error.message);
-            } else if (data) {
-                setVotes({ num_votes: data.num_votes || 0 });
-            }
-        };
-
-        fetchVotes();
-    }, [post.id]);
 
     return (
         <Card 
@@ -64,8 +36,6 @@ const PostCard = ({ post }: PostCardProps) => {
             </CardContent>
             <CardFooter>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>Votes: {votes.num_votes}</span>
-                    <span>•</span>
                     <time>{new Date(post.created_at).toLocaleDateString()}</time>
                 </div>
             </CardFooter>

@@ -6,7 +6,6 @@ CREATE TABLE public.comments (
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   content text NOT NULL,
   post_id bigint,
-  num_votes bigint DEFAULT '0'::bigint,
   CONSTRAINT comments_pkey PRIMARY KEY (id),
   CONSTRAINT comments_post_id_fkey FOREIGN KEY (post_id) REFERENCES public.posts(id)
 );
@@ -16,6 +15,5 @@ CREATE TABLE public.posts (
   title text,
   content text,
   username text,
-  num_votes bigint DEFAULT '0'::bigint,
   CONSTRAINT posts_pkey PRIMARY KEY (id)
 );

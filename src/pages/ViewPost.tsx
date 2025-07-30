@@ -12,7 +12,6 @@ interface Post {
     title: string;
     content: string;
     created_at: string;
-    num_votes: number;
 }
 
 export default function ViewPost() {
@@ -70,29 +69,31 @@ export default function ViewPost() {
                 ← Back to Home
             </Button>
             
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="w-1/3 min-w-[300px]">
-                    <Card className="shadow-lg">
+            <div className="flex justify-center items-start min-h-screen pt-16">
+                <div className="w-full max-w-3xl flex flex-col items-center">
+                    {/* Larger Post Card */}
+                    <Card className="shadow-2xl w-full mb-8 p-8 bg-zinc-800">
                         <CardHeader>
-                            <CardTitle>{post.title}</CardTitle>
+                            <CardTitle className="text-3xl font-bold mb-2">{post.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-muted-foreground whitespace-pre-wrap break-words">
+                            <p className="text-lg text-white whitespace-pre-wrap break-words">
                                 {post.content}
                             </p>
                         </CardContent>
                         <CardFooter>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <span>Likes: {post.num_votes}</span>
-                                <span>•</span>
+                            <div className="flex items-center gap-2 text-base text-muted-foreground">
                                 <time>{new Date(post.created_at).toLocaleDateString()}</time>
                             </div>
                         </CardFooter>
                     </Card>
 
-                    <Comments postId={post.id} key={refreshComments} />
-                    <div className="sticky z-10 bottom-0 bg-zinc-900 rounded-lg shadow-lg text-white p-2">
-                        <EnterComment postId={post.id} onCommentAdded={handleCommentAdded} />
+                    {/* Comments Section */}
+                    <div className="w-full max-w-md">
+                        <Comments postId={post.id} key={refreshComments} />
+                        <div className="sticky z-10 bottom-0 bg-zinc-900 rounded-lg shadow-lg text-white p-2 mt-2">
+                            <EnterComment postId={post.id} onCommentAdded={handleCommentAdded} />
+                        </div>
                     </div>
                 </div>
             </div>
